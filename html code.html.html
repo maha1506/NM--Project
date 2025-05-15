@@ -1,0 +1,522 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>from flask
+import Flask, request, render_template_string</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>import pandas
+as pd</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>import
+matplotlib.pyplot as plt</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>import io</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>import base64</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>app =
+Flask(_name_)</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>HTML = '''</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;!DOCTYPE
+html&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;html
+lang=&quot;en&quot;&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;head&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;meta
+charset=&quot;UTF-8&quot; /&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;meta
+name=&quot;viewport&quot; content=&quot;width=device-width,
+initial-scale=1&quot; /&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;title&gt;Employee
+Performance Analytics&lt;/title&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;style&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  body {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+font-family: &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+background-color: #f0f4f8;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    padding:
+40px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    color:
+#333;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  .container {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    max-width:
+800px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    margin:
+auto;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+background: white;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    padding:
+30px 40px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+box-shadow: 0 0 15px rgba(0,0,0,0.1);</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+border-radius: 12px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  h1 {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    color:
+#007bff;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+margin-bottom: 25px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+text-align: center;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  form {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+margin-bottom: 30px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+text-align: center;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'> 
+input[type=file] {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    padding:
+10px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    border:
+2px solid #007bff;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+border-radius: 6px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    cursor:
+pointer;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  button {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+background-color: #007bff;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    border:
+none;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    padding:
+12px 25px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    color:
+white;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+font-weight: bold;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+border-radius: 7px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    cursor:
+pointer;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+margin-left: 15px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+transition: background-color 0.3s ease;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  button:hover
+{</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+background-color: #0056b3;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  .summary {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+background: #e7f1ff;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+border-left: 6px solid #007bff;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    padding:
+15px 20px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+margin-bottom: 30px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+border-radius: 6px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  .error {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    color:
+red;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+font-weight: 600;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    margin-bottom:
+25px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+text-align: center;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  .chart img {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    display:
+block;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    margin: 0
+auto;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    max-width:
+100%;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  p.note {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+margin-top: 30px;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    font-size:
+0.9em;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    color:
+#555;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+text-align: center;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  }</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;/style&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;/head&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;body&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;div
+class=&quot;container&quot;&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'> 
+&lt;h1&gt;Employee Performance Analytics&lt;/h1&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  &lt;form
+method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;
+action=&quot;/&quot;&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    &lt;input
+type=&quot;file&quot; name=&quot;file&quot; accept=&quot;.csv&quot; required
+/&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    &lt;button
+type=&quot;submit&quot;&gt;Upload &amp; Analyze&lt;/button&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'> 
+&lt;/form&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  {% if error
+%}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    &lt;div
+class=&quot;error&quot;&gt;{{ error }}&lt;/div&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  {% endif %}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  {% if
+summary %}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  &lt;div
+class=&quot;summary&quot;&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+&lt;strong&gt;Summary:&lt;/strong&gt;&lt;br&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    Total
+Employees: {{ summary.total }}&lt;br&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+Departments Analyzed: {{ summary.departments }}&lt;br&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    Overall
+Average Performance Score: {{ summary.overall }}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  &lt;/div&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  {% endif %}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  {% if
+plot_url %}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  &lt;div
+class=&quot;chart&quot;&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+&lt;h2&gt;Average Performance Score by Department&lt;/h2&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    &lt;img
+src=&quot;data:image/png;base64,{{ plot_url }}&quot; alt=&quot;Performance
+chart&quot; /&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  &lt;/div&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  {% endif %}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>  &lt;p
+class=&quot;note&quot;&gt;CSV format must include columns:
+&lt;code&gt;EmployeeID, Department, Performance_Score&lt;/code&gt;&lt;/p&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;/div&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;/body&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&lt;/html&gt;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>'''</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>@app.route('/',
+methods=['GET', 'POST'])</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>def index():</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    error =
+None</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    summary =
+None</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    plot_url =
+None</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    if request.method
+== 'POST':</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>       
+uploaded_file = request.files.get('file')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>        if not
+uploaded_file or not uploaded_file.filename.endswith('.csv'):</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>           
+error = &quot;Please upload a valid CSV file.&quot;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>        else:</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>           
+try:</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>               
+df = pd.read_csv(uploaded_file)</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>               
+required_cols = {'EmployeeID', 'Department', 'Performance_Score'}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>               
+if not required_cols.issubset(df.columns):</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+error = f&quot;CSV must contain columns: {', '.join(required_cols)}&quot;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                else:</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+# Clean data</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+df = df.dropna(subset=['EmployeeID', 'Department', 'Performance_Score'])</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+df['Performance_Score'] = pd.to_numeric(df['Performance_Score'],
+errors='coerce')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+df = df.dropna(subset=['Performance_Score'])</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+# Calculate average by department</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+avg_perf =
+df.groupby('Department')['Performance_Score'].mean().sort_values(ascending=False)</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+# Summary info</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+total = len(df)</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+departments = avg_perf.shape[0]</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                  
+ overall = round(df['Performance_Score'].mean(), 2)</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+summary = {</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                       
+&quot;total&quot;: total,</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                       
+&quot;departments&quot;: departments,</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                       
+&quot;overall&quot;: overall</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+}</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                    #
+Plot</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plt.figure(figsize=(8,5))</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+avg_perf.plot(kind='bar', color='#007bff')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plt.title('Average Employee Performance Score by Department')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plt.ylabel('Average Score')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                    plt.xlabel('Department')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plt.xticks(rotation=45, ha='right')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plt.tight_layout()</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+buf = io.BytesIO()</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plt.savefig(buf, format='png')</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+buf.seek(0)</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plot_url = base64.b64encode(buf.getvalue()).decode()</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>                   
+plt.close()</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>           
+except Exception as e:</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>               
+error = f&quot;Failed to process file: {str(e)}&quot;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>    return
+render_template_string(HTML, error=error, summary=summary, plot_url=plot_url)</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>if _name_ ==
+'_main_':</p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%'>   
+app.run(debug=True)</p>
+
+</div>
+
+</body>
+
+</html>
